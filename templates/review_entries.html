@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Entries Admin</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Masaram+Gondi&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --accent-dark: #2563eb;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-tertiary: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --border-radius-sm: 8px;
+            --border-radius-md: 12px;
+            --border-radius-lg: 16px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+    
+        .gondi-text {
+            font-family: "Noto Sans Masaram Gondi", serif;
+            font-size: 17px !important;
+        }
+    
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+    
+        /* HEADER */
+        .header {
+            position: relative;
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1rem 0;
+        }
+    
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+    
+        .logo-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+            background: rgba(59, 130, 246, 0.1);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+    
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+    
+        .logo-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+    
+        .logo-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+    
+        .noto-sans-hindi {
+            font-family: "Noto Sans", serif;
+            font-size: 17px !important;
+            font-weight: 400;
+            font-style: normal;
+            font-variation-settings: "wdth" 100;
+        }
+    
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.6rem 1rem;
+            border-radius: var(--border-radius-md);
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+    
+        .nav-link:hover {
+            color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+    
+        .nav-link.highlight {
+            background-color: rgba(59, 130, 246, 0.15);
+            color: var(--accent-light);
+        }
+    
+        .nav-link.highlight:hover {
+            background-color: rgba(59, 130, 246, 0.25);
+            color: var(--accent-light);
+        }
+    
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+    
+        /* HERO SECTION */
+        .hero {
+            background-color: var(--bg-secondary);
+            padding: 2rem 0;
+            border-bottom-left-radius: var(--border-radius-lg);
+            border-bottom-right-radius: var(--border-radius-lg);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+    
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0) 70%);
+            z-index: 0;
+        }
+    
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: -75px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0) 70%);
+            z-index: 0;
+        }
+    
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    
+        .hero-title {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.03em;
+            background: linear-gradient(to right, var(--text-primary), var(--accent-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    
+        .hero-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    
+        .search-bar {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    
+        .search-form {
+            display: flex;
+            width: 100%;
+        }
+    
+        .search-input {
+            flex: 1;
+            padding: 0.9rem 1.25rem;
+            padding-left: 2.75rem;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius-md);
+            transition: var(--transition);
+            font-family: 'Noto Sans Masaram Gondi', 'Outfit', sans-serif;
+            width: 100%;
+        }
+    
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background-color: rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+        }
+    
+        .search-input::placeholder {
+            color: var(--text-tertiary);
+        }
+    
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-tertiary);
+            font-size: 1rem;
+        }
+    
+        .search-button {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.65rem 1.25rem;
+            border-radius: var(--border-radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+    
+        .search-button:hover {
+            background-color: var(--accent-dark);
+        }
+    
+        /* STATS */
+        .stats {
+            margin-bottom: 1.5rem;
+        }
+    
+        .stat-card {
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius-md);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: var(--shadow-sm);
+        }
+    
+        .stat-icon {
+            color: var(--accent);
+            font-size: 1.25rem;
+            background-color: rgba(59, 130, 246, 0.1);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--border-radius-sm);
+        }
+    
+        .stat-content {
+            display: flex;
+            flex-direction: column;
+        }
+    
+        .stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+    
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+    
+        /* CARD GRID LAYOUT */
+        .data-section {
+            margin-bottom: 2rem;
+        }
+    
+        .data-container {
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+    
+        /* Data header stats */
+        .data-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    
+        .data-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+    
+        .data-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+        }
+    
+        .data-stats {
+            display: flex;
+            align-items: center;
+        }
+    
+        .header-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+    
+        .header-stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-light);
+        }
+    
+        .header-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+    
+        /* Card Grid Styles */
+        .card-grid-container {
+            padding: 1.5rem;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+    
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.25rem;
+        }
+    
+        .synset-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: var(--border-radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            padding: 1rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+    
+        .synset-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(96, 165, 250, 0.3);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+    
+        .synset-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent), var(--accent-dark));
+        }
+    
+        .card-header {
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            padding-bottom: 0.5rem;
+        }
+    
+        .synset-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+    
+        /* Card Content */
+        .card-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+    
+        .content-item {
+            display: flex;
+            flex-direction: column;
+        }
+    
+        .content-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+            margin-bottom: 0.1rem;
+            font-weight: 500;
+        }
+    
+        .content-value {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            word-break: break-word;
+        }
+    
+        .definition {
+            grid-column: 1 / span 2;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px dashed rgba(255, 255, 255, 0.07);
+        }
+    
+        /* Edit Button */
+        .btn-edit {
+            background-color: var(--accent) !important;
+            color: var(--text-primary) !important;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-sm);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: var(--transition);
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+    
+        .btn-edit:hover {
+            background-color: var(--accent-dark) !important;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+    
+        .btn-edit i {
+            font-size: 0.9rem;
+        }
+    
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 2rem 0;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-md);
+        }
+    
+        table {
+            width: 100%;
+            min-width: 1200px;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+    
+        th, td {
+            padding: 1.5rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    
+        /* Hypernym/Hyponym Truncation */
+        td:nth-child(8), td:nth-child(9) {
+            max-width: 120px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            color: var(--text-secondary);
+            font-size: 0.85em;
+            padding-right: 1rem;
+            position: relative;
+        }
+    
+        td:nth-child(8):hover, 
+        td:nth-child(9):hover {
+            overflow: visible;
+            white-space: normal;
+            z-index: 100;
+            background: var(--bg-secondary);
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+    
+        /* Checkbox Styling */
+        input[type="checkbox"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 1.5px solid var(--text-tertiary);
+            border-radius: 3px;
+            background: var(--bg-secondary);
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+            vertical-align: -2px;
+            margin: 0 4px 0 0;
+        }
+    
+        input[type="checkbox"]:hover {
+            border-color: var(--accent-light);
+            background-color: rgba(59, 130, 246, 0.05);
+        }
+    
+        input[type="checkbox"]:checked {
+            background-color: var(--accent);
+            border-color: var(--accent);
+        }
+    
+        input[type="checkbox"]:checked::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 8px;
+            height: 4px;
+            border: 1.5px solid var(--text-primary);
+            border-top: none;
+            border-right: none;
+            transform: translate(-50%, -60%) rotate(-45deg);
+        }
+        /* Column width adjustments */
+    th:nth-child(1), td:nth-child(1) { width: 40px; } /* Checkbox */
+    th:nth-child(2), td:nth-child(2) { width: 12%; } /* Synset Name */
+    th:nth-child(3), td:nth-child(3) { width: 14%; 
+        white-space: normal;
+        word-break: break-word;
+        min-width: 200px;} /* Gondi Words */
+    th:nth-child(4), td:nth-child(4) { width: 12%; 
+        white-space: normal;
+        word-break: break-word;
+        min-width: 200px;} /* Hindi Pronunciation */
+    th:nth-child(5), td:nth-child(5) { width: 12%; } /* English Words */
+    th:nth-child(6), td:nth-child(6) { width: 12%; } /* Hindi Words */
+    th:nth-child(7), td:nth-child(7) { 
+        width: 15%;
+        white-space: normal;
+        word-break: break-word;
+        min-width: 200px;} /* Definition */
+    th:nth-child(8), td:nth-child(8) { width: 8%; } /* Hypernym */
+    th:nth-child(9), td:nth-child(9) { width: 8%; } /* Hyponym */
+    th:nth-child(10), td:nth-child(10) { width: 6%; } /* POS */
+    th:nth-child(11), td:nth-child(11) { width: 100px; } 
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                padding: 0.5rem 0;
+            }
+    
+            .logo-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 1.2rem;
+            }
+    
+            .nav-links {
+                order: 3;
+                width: 100%;
+                justify-content: space-between;
+            }
+    
+            .nav-link {
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+    
+            .table-container {
+                margin: 1rem -1rem;
+                width: calc(100% + 2rem);
+                border-radius: 0;
+            }
+    
+            table {
+                min-width: 800px;
+            }
+    
+            th, td {
+                padding: 0.6rem;
+                font-size: 0.75rem;
+            }
+    
+            td:nth-child(8),
+            td:nth-child(9) {
+                max-width: 80px;
+                font-size: 0.75em;
+            }
+    
+            input[type="checkbox"] {
+                width: 14px;
+                height: 14px;
+            }
+    
+            .btn-edit {
+                padding: 0.25rem !important;
+                min-width: 28px;
+                min-height: 28px;
+            }
+    
+            .btn-edit span {
+                display: none;
+            }
+        }
+    
+        @media (max-width: 480px) {
+            :root {
+                --border-radius-md: 8px;
+                --border-radius-lg: 12px;
+            }
+    
+            .container {
+                padding: 0 1rem;
+            }
+    
+            th, td {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+    
+            .table-container::-webkit-scrollbar {
+                height: 4px;
+            }
+        }
+    
+        /* Flash Messages */
+        .flash-messages {
+            max-width: 1400px;
+            margin: 1rem auto;
+        }
+    
+        .flash-messages p {
+            padding: 1rem;
+            border-radius: var(--border-radius-sm);
+        }
+    
+        .success {
+            background-color: rgba(16, 185, 129, 0.15) !important;
+            border: 1px solid rgba(16, 185, 129, 0.2) !important;
+            color: var(--success) !important;
+        }
+    
+        .danger {
+            background-color: rgba(239, 68, 68, 0.15) !important;
+            border: 1px solid rgba(239, 68, 68, 0.2) !important;
+            color: var(--danger) !important;
+        }
+    
+        .warning {
+            background-color: rgba(245, 158, 11, 0.15) !important;
+            border: 1px solid rgba(245, 158, 11, 0.2) !important;
+            color: var(--warning) !important;
+        }
+    
+        /* Footer */
+        .footer {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    
+        .footer-logo {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+    
+        .footer-text {
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+        }
+    
+        /* Bulk Actions */
+        .bulk-actions {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+    
+        .bulk-actions button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+    
+        .bulk-actions button.btn-danger {
+            background-color: var(--danger);
+            color: var(--text-primary);
+        }
+    
+        .bulk-actions button.btn-danger:hover {
+            background-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                </div>
+                <div class="logo-text">
+                    <div class="logo-title">Review Entries</div>
+                    <div class="logo-subtitle">Gondi WordNet Moderation</div>
+                </div>
+            </div>
+            <nav class="nav-links">
+                <a href="{{ url_for('add_word') }}" class="nav-link highlight">
+                    <i class="fa-solid fa-plus"></i>
+                    Add Word
+                </a>
+                <a href="{{ url_for('admin') }}" class="nav-link">
+                    <i class="fa-solid fa-gear"></i>
+                    Admin Panel
+                </a>
+                <a href="{{ url_for('main_page') }}" class="nav-link">
+                    <i class="fa-solid fa-home"></i>
+                    Home
+                </a>
+                <a href="{{ url_for('logout') }}" class="nav-link">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <div class="search-bar">
+                <form method="GET" action="/review_entries" class="search-form">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" name="search" 
+                           placeholder="Search entries..." value="{{ search_query }}">
+                    <button type="submit" class="search-button">Search</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Flash Messages -->
+        <div class="flash-messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <!-- Pending Entries Section -->
+        {% if pending_entries %}
+        <div class="data-section">
+            <h2>Pending Entries</h2>
+            <p class="data-subtitle">{{ pending_entries|length }} entries needing review</p>
+            <form id="pending-bulk" method="POST" action="/bulk_action">
+                <div class="bulk-actions">
+                    <button type="button" onclick="submitBulkAction('approve', 'pending')" class="btn-danger">
+                        <i class="fas fa-check"></i>
+                        Approve Selected
+                    </button>
+                    <button type="button" onclick="submitBulkAction('reject', 'pending')" class="btn-danger">
+                        <i class="fas fa-ban"></i>
+                        Reject Selected
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th><input type="checkbox" onclick="toggleSelectAll(this, 'pending')"></th>
+                            <th>Synset Name</th>
+                            <th>Gondi Words</th>
+                            <th>Hindi Pronunciation</th>
+                            <th>Hindi Words</th>
+                            <th>English Words</th>
+                            <th>Definition</th>
+                            <th>Hypernym</th>
+                            <th>Hyponym</th>
+                            <th>POS</th>
+                            <th>Actions</th>
+                        </tr>
+                        {% for word in pending_entries %}
+                        <tr>
+                            <td><input type="checkbox" name="word_ids" value="{{ word.id }}"></td>
+                            <td>{{ word.name }}</td>
+                            <td class="gondi-text">{{ word.words_gondi }}</td>
+                            <td class="noto-sans-hindi">{{ word.words_hindi }}</td>
+                            <td class="noto-sans-hindi">{{ word.hin_word }}</td>
+                            <td>{{ word.words_english }}</td>
+                            <td>{{ word.definition }}</td>
+                            <td>{{ word.hypernym }}</td>
+                            <td>{{ word.hyponym }}</td>
+                            <td>{{ word.pos }}</td>
+                            <td>
+                                <a href="/edit_word/{{ word.id }}" class="btn-edit">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    <span>Edit</span>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+
+        <!-- Reviewed Entries Section -->
+        {% if reviewed_entries %}
+        <div class="data-section">
+            <h2>Reviewed Entries</h2>
+            <p class="data-subtitle">{{ reviewed_entries|length }} reviewed entries</p>
+            <form id="reviewed-bulk" method="POST" action="/bulk_action">
+                <div class="bulk-actions">
+                    <button type="button" onclick="submitBulkAction('approve', 'reviewed')" class="btn-danger">
+                        <i class="fas fa-check"></i>
+                        Approve Selected
+                    </button>
+                    <button type="button" onclick="submitBulkAction('reject', 'reviewed')" class="btn-danger">
+                        <i class="fas fa-ban"></i>
+                        Reject Selected
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th><input type="checkbox" onclick="toggleSelectAll(this, 'reviewed')"></th>
+                            <th>Synset Name</th>
+                            <th>Gondi Words</th>
+                            <th>Hindi Pronunciation</th>
+                            <th>Hindi Words</th>
+                            <th>English Words</th>
+                            <th>Definition</th>
+                            <th>Hypernym</th>
+                            <th>Hyponym</th>
+                            <th>POS</th>
+                            <th>Actions</th>
+                        </tr>
+                        {% for word in reviewed_entries %}
+                        <tr>
+                            <td><input type="checkbox" name="word_ids" value="{{ word.id }}"></td>
+                            <td>{{ word.name }}</td>
+                            <td class="gondi-text">{{ word.words_gondi }}</td>
+                            <td class="noto-sans-hindi">{{ word.words_hindi }}</td>
+                            <td class="noto-sans-hindi">{{ word.hin_word }}</td>
+                            <td>{{ word.words_english }}</td>
+                            <td>{{ word.definition }}</td>
+                            <td>{{ word.hypernym }}</td>
+                            <td>{{ word.hyponym }}</td>
+                            <td>{{ word.pos }}</td>
+                            <td>
+                                <a href="/edit_word/{{ word.id }}" class="btn-edit">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    <span>Edit</span>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+
+        <!-- Approved Entries Section -->
+        {% if approved_entries %}
+        <div class="data-section">
+            <h2>Approved Entries</h2>
+            <p class="data-subtitle">{{ approved_entries|length }} approved entries</p>
+            <form id="approved-bulk" method="POST" action="/bulk_action">
+                <div class="bulk-actions">
+                    <button type="button" onclick="submitBulkAction('pending', 'approved')" class="btn-danger">
+                        <i class="fas fa-arrow-left"></i>
+                        Send to Pending
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th><input type="checkbox" onclick="toggleSelectAll(this, 'approved')"></th>
+                            <th>Synset Name</th>
+                            <th>Gondi Words</th>
+                            <th>Hindi Pronunciation</th>
+                            <th>Hindi Words</th>
+                            <th>English Words</th>
+                            <th>Definition</th>
+                            <th>Hypernym</th>
+                            <th>Hyponym</th>
+                            <th>POS</th>
+                            <th>Actions</th>
+                        </tr>
+                        {% for word in approved_entries %}
+                        <tr>
+                            <td><input type="checkbox" name="word_ids" value="{{ word.id }}"></td>
+                            <td>{{ word.name }}</td>
+                            <td class="gondi-text">{{ word.words_gondi }}</td>
+                            <td class="noto-sans-hindi">{{ word.words_hindi }}</td>
+                            <td class="noto-sans-hindi">{{ word.hin_word }}</td>
+                            <td>{{ word.words_english }}</td>
+                            <td>{{ word.definition }}</td>
+                            <td>{{ word.hypernym }}</td>
+                            <td>{{ word.hyponym }}</td>
+                            <td>{{ word.pos }}</td>
+                            <td>
+                                <a href="/edit_word/{{ word.id }}" class="btn-edit">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    <span>Edit</span>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function submitBulkAction(action, section) {
+            const form = document.querySelector(`#${section}-bulk`);
+            const selected = form.querySelectorAll('input[name="word_ids"]:checked');
+            
+            if (selected.length === 0) {
+                alert('Please select at least one entry');
+                return;
+            }
+            
+            const actionInput = document.createElement('input');
+            actionInput.type = 'hidden';
+            actionInput.name = 'action';
+            actionInput.value = action;
+            form.appendChild(actionInput);
+            
+            form.submit();
+        }
+        
+        function toggleSelectAll(source, section) {
+            const form = document.querySelector(`#${section}-bulk`);
+            const checkboxes = form.querySelectorAll('input[name="word_ids"]');
+            checkboxes.forEach(cb => cb.checked = source.checked);
+        }
+    </script>
+</body>
+</html>

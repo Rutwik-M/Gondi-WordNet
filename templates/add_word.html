@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Word</title>
+    
+    <!-- Font Links -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Masaram+Gondi&family=Outfit:wght@300;400;500;600;700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --accent-dark: #2563eb;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-tertiary: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --border-radius-sm: 8px;
+            --border-radius-md: 12px;
+            --border-radius-lg: 16px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--bg-secondary);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            text-align: center;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        nav a {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--border-radius-md);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            background: var(--accent);
+            color: var(--text-primary);
+        }
+
+        /* Form Section */
+        .form-section {
+            flex: 2;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+
+        form label {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        form input[type="text"],
+        .custom-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius-sm);
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        form input[type="text"]:focus,
+        .custom-select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+            outline: none;
+        }
+        /* Add this to your existing styles */
+.custom-select {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* For dropdown options */
+.custom-select option {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 0.75rem;
+}
+
+/* For dropdown arrow visibility */
+.custom-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='%2394a3b8' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+
+        .custom-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='%2394a3b8' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 12px;
+        }
+
+        input[type="submit"] {
+            grid-column: 1 / -1;
+            background: var(--accent);
+            color: var(--text-primary);
+            border: none;
+            padding: 1rem;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        input[type="submit"]:hover {
+            background: var(--accent-dark);
+        }
+
+        .hint {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            font-style: italic;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            flex: 1;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            height: fit-content;
+            box-shadow: var(--shadow-md);
+        }
+
+        details {
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: var(--border-radius-md);
+        }
+
+        summary {
+            padding: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            color: var(--text-primary);
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::after {
+            content: "›";
+            float: right;
+            transform: rotate(90deg);
+            transition: var(--transition);
+        }
+
+        details[open] summary::after {
+            transform: rotate(270deg);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+        }
+
+        th, td {
+            padding: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            text-align: center;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .gondi-text {
+            font-family: "Noto Sans Masaram Gondi", serif;
+            font-size: 17px;
+        }
+
+        .noto-sans-hindi {
+            font-family: "Noto Sans", sans-serif;
+            font-size: 14px;
+        }
+
+        /* Flash Messages */
+        .flash-messages {
+            max-width: 800px;
+            margin: 1rem auto;
+        }
+
+        .flash-messages p {
+            padding: 1rem;
+            border-radius: var(--border-radius-md);
+            margin: 0.5rem 0;
+        }
+
+        .success {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .danger {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .warning {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .form-section, .sidebar {
+                width: 100%;
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            form {
+                grid-template-columns: 1fr, 1fr;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav a {
+                width: 100%;
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            table {
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .form-section, .sidebar {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+  <header>
+      <h1>
+        Add New Word</h1>
+      <nav>
+          <a href="{{ url_for('main_page') }}">
+            <i class="fas fa-home"></i>
+            Home Page
+          </a>
+          <a href="{{ url_for('review') }}">
+            <i class="fas fa-user-check"></i>
+            Reviewer Page
+          </a>
+      </nav>
+  </header>
+  <!-- Flash Messages -->
+  <div class="flash-messages">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <p class="{{ category }}">{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+  </div>
+  
+  <div style="overflow-x: auto;">
+      <div class="container">
+          <!-- Form Section -->
+          <div class="form-section">
+              <form method="POST" action="/add_word">
+
+                  <label>Gondi Words:
+                      <input type="text" name="words_gondi" id="words-gondi" placeholder="Leave blank to auto-generate">
+                      <span class="hint">not compulsory</span> 
+                  </label>
+                  <label>Hindi Pronunciation: <input type="text" name="words_hindi" id="hindi-pronunciation" placeholder="Pronunciation of Gondi Word" required>
+                  <span class="hint">*required</span>
+                  </label>
+                  <label>Hindi Words: <input type="text" name="hin_word" id="hindi-words" placeholder="Add Hindi Words" required>
+                      <span class="hint">*required</span>
+                  </label>
+                  <label>English Words: <input type="text" name="words_english" id="english-words" placeholder="Add English Word" required>
+                      <span class="hint">*required</span>
+                  </label>
+                  <label>Definition: <input type="text" name="definition" id="definition" placeholder="Leave blank to auto-generate">
+                      <span class="hint">not compulsory</span>
+                  </label>
+                  <label>Part of Speech:
+                      <select name="pos" class="custom-select" placeholder="Select POS"required>
+                          <option value="" disabled selected>Select POS</option>
+                          <option value="n" >Noun </option>
+                          <option value="v">Verb</option>
+                          <option value="a">Adjective</option>
+                          <option value="r">Adverb</option>
+                          <option value="co">Conjunction</option>
+                          <option value="pr">Preposition</option>
+                        </select>
+                        <span class="hint">*required</span>
+                    </label>
+                  <input type="submit" value="Add Word">
+              </form>
+          </div>
+
+          <!-- Sidebar Section -->
+          <div class="sidebar">
+              <!-- Collapsible Instructions -->
+              <details>
+                <summary>Instruction Set</summary>
+                <ul>
+                    <li><strong>Gondi Words:</strong> Optional. Leave blank to auto-generate using the Hindi pronunciation. If provided, it will override auto-generation.</li>
+                    <li><strong>Hindi Pronunciation:</strong> Provide the Hindi transliteration in Devanagari script. Required.</li>
+                    <li><strong>Hindi Words:</strong> Enter the Hindi equivalent(s). Required.</li>
+                    <li><strong>English Words:</strong> Enter one or more English words separated by semicolons (;). Each word will be added as a separate entry.</li>
+                    <li><strong>Definition:</strong> Optional. Leave blank to auto-generate from WordNet data. You can customize it if needed.</li>
+                    <li><strong>Part of Speech (POS):</strong> Select the POS (e.g., Noun, Verb) from the dropdown. This field is required.</li>
+                </ul>
+                <h3>Example Entries</h3>
+                <div style="overflow-x: auto;">
+                    <table class="table1">
+                        <tr>
+                            <th>English Words</th>
+                            <th>Gondi Words</th>
+                            <th>Hindi Pronunciation</th>
+                            <th>Hindi Words</th>
+                            <th>Definition</th>
+                            <th>POS</th>
+                        </tr>
+                        <tr>
+                            <td>Cat</td>
+                            <td class="gondi-text">𑴢𑴲𑴧𑴱𑴧</td>
+                            <td class="noto-sans-hindi">बिलाल</td>
+                            <td class="noto-sans-hindi">बिल्ली</td>
+                            <td>A small domesticated carnivorous mammal</td>
+                            <td>noun</td>
+                        </tr>
+                        <tr>
+                            <td>Day;Night</td>
+                            <td class="gondi-text">𑴟𑴺𑴖;𑴠𑴳𑴧</td>
+                            <td class="noto-sans-hindi">नेटी;रात</td>
+                            <td class="noto-sans-hindi">दिन;रात</td>
+                            <td>Duration of 24 hours;Dark period</td>
+                            <td>noun</td>
+                        </tr>
+                    </table>
+                </div>
+            </details>
+
+              <!-- Collapsible Gondi Alphabets Image -->
+              <details>
+                  <summary>Gondi Alphabets</summary>
+                  <div style="overflow-x: auto;">
+                  <table border="0.5">
+                    <tr>
+                      <td><b>Vowels and vowel diacritics with ka</b></td>
+                    </tr>
+                  </table>
+                  </div>
+                  <div style="overflow-x: auto;">
+                  <table border="0.5">
+                        <tr class="gondi-text">
+                          <td>𑈀</td>
+                          <td>𑴁</td>
+                          <td>𑴂</td>
+                          <td>𑴃</td>
+                          <td>𑴄</td>
+                          <td>𑴅</td>
+                          <td>𑴆</td>
+                          <td>羿</td>
+                        </tr>
+                        <tr class="noto-sans-hindi">
+                          <td>a (अ)</td>
+                          <td>aa (आ)</td>
+                          <td>i (इ)</td>
+                          <td>ii (ई)</td>
+                          <td>u (उ)</td>
+                          <td>uu (ऊ)</td>
+                          <td>e (ए)</td>
+                          <td>ai (ऐ)</td>
+                        </tr>
+                        <tr class="gondi-text">
+                          <td>𑴌</td>
+                          <td>𑴌𑴱</td>
+                          <td>𑴌𑴲</td>
+                          <td>𑴌𑴳</td>
+                          <td>𑴌𑴴</td>
+                          <td>𑴌𑴵</td>
+                          <td>𑴌𑴺</td>
+                          <td>𑴌𑴼</td>
+                        </tr>
+                        <tr class="noto-sans-hindi">
+                          <td>ka (क)</td>
+                          <td>kaa (का)</td>
+                          <td>ki (कि)</td>
+                          <td>kii (की)</td>
+                          <td>ku (कु)</td>
+                          <td>kuu (कू)</td>
+                          <td>ke (के)</td>
+                          <td>kai (कै)</td>
+                        </tr>
+                        <tr class="gondi-text">
+                          <td>𑴉</td>
+                          <td>𑴋</td>
+                          <td>𑈀𑵀</td>
+                          <td>𑈀𑵁</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr class="noto-sans-hindi">
+                          <td>o (ओ)</td>
+                          <td>au (औ)</td>
+                          <td>aṃ (अं)</td>
+                          <td>aḥ (अः)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr class="gondi-text">
+                          <td>𑴌𑴽</td>
+                          <td>𑴌𑴿</td>
+                          <td>𑴌𑵀</td>
+                          <td>𑴌𑵁</td>
+                          <td>𑴌𑴶</td>
+                          <td>𑴌𑵄</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr class="noto-sans-hindi">
+                          <td>ko (को)</td>
+                          <td>kau (कौ)</td>
+                          <td>kaṃ (कं)</td>
+                          <td>kaḥ (कः)</td>
+                          <td>kr̥ (क्र)</td>
+                          <td>k (क्)</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        </table>
+                        </div>
+                        <div style="overflow-x: auto;">
+                        <table border="0.5">
+                          <td><b>Consonants</b></td>
+                        </table>
+                        </div>
+                        <div style="overflow-x: auto;">
+                        <table border="0.5">
+                        <tr class="gondi-text">
+                          <td>𑴌</td>
+                          <td>𑴍</td>
+                          <td>𑴎</td>
+                          <td>𑴏</td>
+                          <td>𑴐</td>
+                          <td>𑴑</td>
+                          <td>𑴒</td>
+                          <td>𑴓</td>
+                        </tr>
+                        <tr class="noto-sans-hindi">
+                          <td>ka (क)</td>
+                          <td>kha (ख)</td>
+                          <td>ga (ग)</td>
+                          <td>gha (घ)</td>
+                          <td>nga (ङ)</td>
+                          <td>ca (च)</td>
+                          <td>cha (छ)</td>
+                          <td>ja (ज)</td>
+                        </tr>
+                        <tr class="gondi-text">
+                          <td>𑴔</td>
+                          <td>𑴕</td>
+                          <td>𑴖</td>
+                          <td>𑴗</td>
+                          <td>𑴘</td>
+                          <td>𑴙</td>
+                          <td>𑴚</td>
+                          <td>𑴛</td>
+                        </tr>
+                        <tr class="noto-sans-hindi">
+                          <td>jha (झ)</td>
+                          <td>nya (ञ)</td>
+                          <td>tta (ट)</td>
+                          <td>ttha (ठ)</td>
+                          <td>dda (ड)</td>
+                          <td>ddha (ढ)</td>
+                          <td>nna (ण)</td>
+                          <td>ta (त)</td>
+                        </tr>
+                        <tr class="gondi-text">
+                          <td>𑴜</td>
+                          <td>𑴝</td>
+                          <td>𑴞</td>
+                          <td>𑴟</td>
+                          <td>𑴠</td>
+                          <td>𑴡</td>
+                          <td>𑴢</td>
+                          <td>𑴣</td>
+                        </tr>
+                        <tr class="noto-sans-hindi">
+                          <td>tha (थ)</td>
+                          <td>da (द)</td>
+                          <td>dha (ध)</td>
+                          <td>na (न)</td>
+                          <td>pa (प)</td>
+                          <td>pha (फ)</td>
+                          <td>ba (ब)</td>
+                          <td>bha (भ)</td>
+                        </tr>
+                        <tr class="gondi-text">
+                          <td>𑴤</td>
+                          <td>𑴥</td>
+                          <td>𑴦</td>
+                          <td>𑴧</td>
+                          <td>𑴨</td>
+                          <td>𑴩</td>
+                          <td>𑴪</td>
+                          <td>𑴫</td>
+                        </tr>
+                        <tr class="noto-sans-hindi">
+                          <td>ma (म)</td>
+                          <td>ya (य)</td>
+                          <td>ra (र)</td>
+                          <td>la (ल)</td>
+                          <td>va (व)</td>
+                          <td>sha (श)</td>
+                          <td>ssa (ष)</td>
+                          <td>sa (स)</td>
+                        </tr>
+                        <tr class="gondi-text">
+                          <td>𑴬</td>
+                          <td>𑴭</td>
+                          <td>𑴮</td>
+                          <td>𑴯</td>
+                          <td>𑴰</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr class="noto-sans-hindi">
+                          <td>ha (ह)</td>
+                          <td>lla (ळ)</td>
+                          <td>kssa (क्ष)</td>
+                          <td>jnya (ज्ञ)</td>
+                          <td>tra (त्र)</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        </table>
+                        </div>
+                        <div style="overflow-x: auto;">
+                        <table border="0.5">
+                          <td><b>Numerals</b></td>
+                        </table>
+                        </div>
+                        <div style="overflow-x: auto;">
+                        <table border="0.5">
+                        <tr class="gondi-text">
+                          <td>𑵐</td>
+                          <td>𑵑</td>
+                          <td>𑵒</td>
+                          <td>𑵓</td>
+                          <td>𑵔</td>
+                          <td>𑵕</td>
+                          <td>𑵖</td>
+                          <td>𑵗</td>
+                        </tr>
+                        <tr class="gondi-text">
+                          <td></td>
+                          <td>𑴄𑵀𑴝𑴲</td>
+                          <td>𑴦𑵀𑴘</td>
+                          <td>𑴤𑴵𑵀𑴝</td>
+                          <td>𑴟𑴴𑴧𑴴𑵀𑴐</td>
+                          <td>𑴫𑴲𑴥𑴴𑵀𑴐</td>
+                          <td>𑴫𑴲𑴥𑴴𑵀𑴐</td>
+                          <td>𑴥𑴺𑴓𑴴𑵀𑴐</td>
+                        </tr>
+                        <tr class="noto-sans-hindi">
+                          <td></td>
+                          <td>uṇdi</td>
+                          <td>raṇdd</td>
+                          <td>muuṇda</td>
+                          <td>nuluṇnga</td>
+                          <td>siyuṇnga</td>
+                          <td>suruṇnga</td>
+                          <td>yejuṇnga</td>
+                        </tr>
+                        <tr class="noto-sans-hindi">
+                          <td>0</td>
+                          <td>1</td>
+                          <td>2</td>
+                          <td>3</td>
+                          <td>4</td>
+                          <td>5</td>
+                          <td>6</td>
+                          <td>7</td>
+                        </tr>
+                        <tr class="gondi-text">
+                          <td>𑵘</td>
+                          <td>𑵙</td>
+                          <td>𑵑𑵐</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr class="gondi-text">
+                          <td>𑈀𑴟</td>
+                          <td>𑴠𑴿𑴟</td>
+                          <td>𑴙𑴟</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr class="noto-sans-hindi">
+                          <td>ana</td>
+                          <td>pauna</td>
+                          <td>ddhana</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr class="noto-sans-hindi">
+                          <td>8</td>
+                          <td>9</td>
+                          <td>10</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                  </table>
+                </div>
+                    <p><small>Reference: <a href="https://www.omniglot.com/writing/masaramgondi.htm" target="_blank">Original Work</a></small></p>
+                </footer>
+              </details>
+          </div>
+      </div>
+  </div>
+
+  <!-- Keyman Web Scripts -->
+  <script src="https://s.keyman.com/kmw/engine/17.0.335/keymanweb.js"></script>
+  <script src="https://s.keyman.com/kmw/engine/17.0.335/kmwuitoggle.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize KeymanWeb with auto attach
+        keyman.init({ attachType: 'auto' }).then(() => {
+            console.log('KeymanWeb initialized');
+            // Load the default system keyboard (English)
+            keyman.addKeyboards('@en', '@hi', '@gon-gonm'); // Load all keyboards at once
+            console.log('Keyboards loaded');
+        }).catch(error => {
+            console.error('Error initializing KeymanWeb:', error);
+        });
+    
+        // Function to load and activate a specific keyboard
+        function loadAndActivateKeyboard(keyboardId) {
+            console.log(`Activating keyboard: ${keyboardId}`);
+            keyman.setActiveKeyboard(keyboardId).catch(error => {
+                console.error(`Error activating keyboard ${keyboardId}:`, error);
+            });
+        }
+    
+        // Assuming you have form fields with unique IDs for Hindi and Gondi entries
+        var gondiEntry = document.getElementById('words-gondi');
+        var hindiPronunciationEntry = document.getElementById('hindi-pronunciation');
+        var hindiWordsEntry = document.getElementById('hindi-words');
+    
+        
+    });
+    </script>
+</body>
+</html>

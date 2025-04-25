@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gondi WordNet Visualization</title>
+
+    <!-- Include Vis.js library via CDN -->
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js" crossorigin="anonymous"></script>
+    <link href="https://unpkg.com/vis-network/styles/vis-network.min.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Masaram+Gondi&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Root Variables from the first document */
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --accent-dark: #2563eb;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-tertiary: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --border-radius-sm: 8px;
+            --border-radius-md: 12px;
+            --border-radius-lg: 16px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* General Styles (keeping the original for the main content) */
+        body {
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #E8F1F8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* HEADER - applying the styling from the first document */
+        .header {
+            position: relative;
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1rem 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+            background: rgba(59, 130, 246, 0.1);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.6rem 1rem;
+            border-radius: var(--border-radius-md);
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link.highlight {
+            background-color: rgba(59, 130, 246, 0.15);
+            color: var(--accent-light);
+        }
+
+        .nav-link.highlight:hover {
+            background-color: rgba(59, 130, 246, 0.25);
+            color: var(--accent-light);
+        }
+
+        /* Keeping the original content styles */
+        h2 {
+            font-size: 16px;
+            font-family: 'Outfit', sans-serif;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 15px !important;
+            color: #333;
+        }
+
+        p {
+            text-align: center;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            max-width: 85%;
+            margin: 5px auto;
+            margin-top: 0px !important;
+            margin-bottom: 0px !important;
+            color: #555;
+        }
+
+        /* Graph Container (keeping original) */
+        .graph-container {
+            width: 93%;
+            margin: 20px auto;
+            margin-top: 0px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: "Noto Sans Masaram Gondi", serif !important;
+            padding: 5px;
+            overflow: hidden;
+            height: 80vh; /* Default height based on viewport */
+            min-height: 450px; /* Ensuring it's not too small */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Ensure PyVis div inside graph-container fills height */
+        .graph-container > div {
+            width: 100% !important;
+            font-family: "Noto Sans Masaram Gondi", serif;
+            height: 100% !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Ensure the PyVis canvas adapts */
+        .graph-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* FOOTER - applying the styling from the first document */
+        .footer {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .footer-logo {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .footer-text {
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive adjustments (combining both) */
+        @media (max-width: 1024px) {
+            .logo-title {
+                font-size: 1.2rem;
+            }
+        }
+        /* Update body styles */
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    /* Add main content wrapper */
+    .main-content {
+        flex: 1;
+        padding-bottom: 2rem;
+    }
+
+    /* Update footer styles */
+    .footer {
+        margin-top: auto;
+        width: 100%;
+    }
+
+        @media (max-width: 768px) {  
+            .graph-container {
+                height: 65vh !important;
+            }
+            
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+            
+            .nav-links {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+            
+            .nav-link {
+                flex: 1;
+                justify-content: center;
+                text-align: center;
+                padding: 0.6rem 0.75rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 0.75rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header-container {
+                flex-direction: row;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 480px) {  
+            .graph-container {
+                height: 55vh !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Applying the new header styling -->
+    <div class="header">
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-title">Gondi WordNet Visualization</span>
+                </div>
+            </div>
+            <nav class="nav-links">
+                <a href="{{ url_for('main_page') }}" class="nav-link highlight">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Keeping the original content section -->
+    <h2>Explore the Gondi WordNet Visually</h2>
+    <p>Interact with the graph to see relationships between words in Gondi, Hindi, and English.</p>
+    <p>Zoom in for better visualization | Hover or Tap over nodes for detailed information.</p>
+    
+    <!-- Graph Container (keeping original) -->
+    <div class="graph-container">
+        {{ pyvis_html|safe }}
+    </div>
+
+    <!-- Adding the new footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">Gondi WordNet</div>
+            <div class="footer-text">© 2025 Gondi WordNet Project. All rights reserved.</div>
+        </div>
+    </div>
+</body>
+</html>
