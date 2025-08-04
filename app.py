@@ -285,8 +285,8 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        # Check if the username exists in the PASSWORDS_USER dictionary and password matches
-        if username in PASSWORDS_ADMIN and PASSWORDS_ADMIN[username] == password:
+        
+        if username == config.ADMIN_USERNAME and password == config.ADMIN_PASSWORD:
             session['logged_in'] = True
             return redirect(url_for('admin'))
         else:

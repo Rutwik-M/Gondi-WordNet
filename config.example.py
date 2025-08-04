@@ -8,3 +8,5 @@ class Config:
     SUPABASE_URL      = os.getenv("SUPABASE_URL")
     SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY")
     SECRET_KEY        = os.getenv("SECRET_KEY")
+    ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME')
+    ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD')
