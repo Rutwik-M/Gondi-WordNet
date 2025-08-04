@@ -6,7 +6,7 @@ from flask import Response
 from nltk.corpus import wordnet as wn
 nltk.download('wordnet')
 from config import Config  # Import your configuration (e.g., DATABASE_URL)
-from pass_admin import PASSWORDS_ADMIN  # Import admin passwords if needed
+
 from werkzeug.security import check_password_hash, generate_password_hash
 import psycopg2
 from psycopg2.pool import SimpleConnectionPool
