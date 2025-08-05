@@ -17,6 +17,34 @@ This repository and the accompanying web application were conceptualized, design
 
 ---
 
+## 📖 Academic Publication
+
+This project and its underlying methodology are detailed in our peer-reviewed paper published in the IEEE Xplore digital library.
+
+**Title:** Design and Development of MahaDict for Low-Level Maharashtra State Language (Gondi WordNet)
+<br>
+**Conference:** 2024 International Conference on Artificial Intelligence and Quantum Computation-Based Sensor Application (ICAIQSA)
+<br>
+**DOI:** `10.1109/ICAIQSA64000.2024.10882401`
+<br>
+**[View on IEEE Xplore](https://ieeexplore.ieee.org/document/10882401)**
+
+To cite this work, please use the following BibTeX entry:
+```bibtex
+@INPROCEEDINGS{10882401,
+  author={Muley, Rutwik and Karande, Sahil and Meshram, Saharsh and Madne, Omkar and Motghare, Manish and Nirkhi, Smita},
+  booktitle={2024 International Conference on Artificial Intelligence and Quantum Computation-Based Sensor Application (ICAIQSA)}, 
+  title={Design and Development of MahaDict for Low-Level Maharashtra State Language (Gondi WordNet)}, 
+  year={2024},
+  volume={},
+  number={},
+  pages={1-9},
+  keywords={Translation;Accuracy;Quantum computing;Databases;Semantics;Buildings;Machine learning;Knowledge graphs;Text to speech;Reliability;Gondi Wordnet;Gondi-English;Lexicon Database;WordNet;Synset},
+  doi={10.1109/ICAIQSA64000.2024.10882401}
+}
+```
+---
+
 ### **Live Application: [gondi-wordnet.onrender.com](https://gondi-wordnet.onrender.com/)**
 
 <img width="3072" height="2286" alt="screencapture-gondi-wordnet-onrender-2025-08-05-08_35_26" src="https://github.com/user-attachments/assets/96009b40-d8a0-4974-9072-240933525f54" />
