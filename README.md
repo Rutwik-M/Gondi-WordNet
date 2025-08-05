@@ -20,7 +20,7 @@ This repository and the accompanying web application were conceptualized, design
 
 * **GitHub:** `Rutwik-M` https://github.com/Rutwik-M
 * **LinkedIn:** `Rutwik Muley` https://www.linkedin.com/in/rutwik-muley-b20707208
-* **Portfolio:** `Rutwik Muley` [rutwik-m.is-a.dev](rutwik-m.is-a.dev)
+* **Portfolio:** `Rutwik Muley` [rutwik-m.is-a.dev](https://rutwik-m.is-a.dev)
 
 ---
 
