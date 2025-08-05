@@ -10,7 +10,7 @@ A comprehensive digital lexical database and web platform for the Gondi language
 ### **Live Application: [gondi-wordnet.onrender.com](https://gondi-wordnet.onrender.com/)**
 
 
-*(**Note**: To make this image appear, take a screenshot of your website, upload it to a service like Imgur, and paste the direct image link here.)*
+https://drive.google.com/file/d/19VAg6jhRqUblFu5laUOP9zZFu5ZWQDTP/view?usp=drive_link
 
 ---
 
