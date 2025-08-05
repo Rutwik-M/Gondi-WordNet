@@ -7,13 +7,6 @@
 
 A comprehensive digital lexical database and web platform for the Gondi language. This project aims to preserve, promote, and provide a research-oriented resource for Gondi, a South-Central Dravidian language.
 
-### **Live Application: [gondi-wordnet.onrender.com](https://gondi-wordnet.onrender.com/)**
-
-<img width="3072" height="2286" alt="screencapture-gondi-wordnet-onrender-2025-08-05-08_35_26" src="https://github.com/user-attachments/assets/96009b40-d8a0-4974-9072-240933525f54" />
-
-
----
-
 ## ✨ Creator
 
 This repository and the accompanying web application were conceptualized, designed, and developed by **Rutwik Muley**.
@@ -21,6 +14,13 @@ This repository and the accompanying web application were conceptualized, design
 * **GitHub:** `Rutwik-M` https://github.com/Rutwik-M
 * **LinkedIn:** `Rutwik Muley` https://www.linkedin.com/in/rutwik-muley-b20707208
 * **Portfolio:** `Rutwik Muley` [rutwik-m.is-a.dev](https://rutwik-m.is-a.dev)
+
+---
+
+### **Live Application: [gondi-wordnet.onrender.com](https://gondi-wordnet.onrender.com/)**
+
+<img width="3072" height="2286" alt="screencapture-gondi-wordnet-onrender-2025-08-05-08_35_26" src="https://github.com/user-attachments/assets/96009b40-d8a0-4974-9072-240933525f54" />
+
 
 ---
 
