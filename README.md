@@ -18,8 +18,8 @@ A comprehensive digital lexical database and web platform for the Gondi language
 
 This repository and the accompanying web application were conceptualized, designed, and developed by **Rutwik Muley**.
 
-* **GitHub:** `https://github.com/Rutwik-M` 
-* **LinkedIn:** `https://www.linkedin.com/in/rutwik-muley-b20707208'
+* **GitHub:** `Rutwik-M` 'https://github.com/Rutwik-M'
+* **LinkedIn:** `Rutwik Muley` 'https://www.linkedin.com/in/rutwik-muley-b20707208'
 
 ---
 
