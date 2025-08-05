@@ -9,8 +9,8 @@ A comprehensive digital lexical database and web platform for the Gondi language
 
 ### **Live Application: [gondi-wordnet.onrender.com](https://gondi-wordnet.onrender.com/)**
 
+<img width="3072" height="2286" alt="screencapture-gondi-wordnet-onrender-2025-08-05-08_35_26" src="https://github.com/user-attachments/assets/96009b40-d8a0-4974-9072-240933525f54" />
 
-https://drive.google.com/file/d/19VAg6jhRqUblFu5laUOP9zZFu5ZWQDTP/view?usp=drive_link
 
 ---
 
